@@ -897,7 +897,7 @@
             bottom: 24px;
             right: 24px;
             z-index: 9999;
-            background: linear-gradient(135deg, #facc15 0%, #f59e0b 100%);
+            background: linear-gradient(135deg, #3cd387 0%, #60C05F 100%);
             color: #000;
             border: none;
             border-radius: 50px;
@@ -1265,7 +1265,7 @@
         <!-- Hero Section -->
         <div class="relative min-h-screen flex items-center justify-center overflow-hidden">
             <!-- Enhanced Background -->
-            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40" style="background-image: url('images/BG.png')"></div>
+            <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"  style="background: url('./hero-bg.png') no-repeat center center / cover"></div>
             <div class="absolute inset-0 bg-gradient-to-br from-black via-black/50 to-transparent"></div>
             
             <!-- Floating Elements -->
@@ -1511,10 +1511,10 @@
                                     <!-- <div class="text-gray-400 text-sm" data-en="Profits above base capital" data-ko="기본 자본 초과 수익">기본 자본 초과 수익</div> -->
                                 </div>
                                 
-                                <div class="bg-white/5 p-4 rounded-lg max-w550">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <span class="text-white font-medium" data-en="Activity Requirement" data-ko="예시">예시</span>
-                                        <span class="text-yellow-400 font-bold text-xl" data-en="5 Days" data-ko="$15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시">15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시</span>
+                                <div class="bg-white/5 p-4 rounded-lg">
+                                    <div class="flex items-start mb-2 gap-3">
+                                        <span class="text-white font-medium whitespace-nowrap mt-1" data-en="Activity Requirement" data-ko="예시">예시</span>
+                                        <span class="w-0 flex-grow text-yellow-400 font-bold text-xl text-left" data-en="5 Days" data-ko="$15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시">15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시</span>
                                     </div>
                                     <div class="text-gray-400 text-sm" data-en="Must trade within 120 hours" data-ko="프랍 자금 $15,000전액+ 등록비 및 수익 포함 총 $3000 모두지급">120시간 이내 거래 필수</div>
                                 </div>
@@ -1542,7 +1542,7 @@
                 </div>
             </div>
         </div>
-        <div class="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white py-20" id="process">
+        <div class="bg-gradient-to-br from-black via-gray-900 to-black text-white py-20" id="process">
             <div class="max-w-6xl mx-auto space-y-12 container">
                 <div class="text-center space-y-4">
                     <h1 class="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent" data-en="TWO-STAGE TRADING CHALLENGE" data-ko="3. 펀디드 계좌 운용(자본 지원 시작)">3. 펀디드 계좌 운용(자본 지원 시작)</h1>
@@ -2038,8 +2038,8 @@
         
         // Typewriter effect
         const typeTexts = {
-            en: "Olymp FUNDED",
-            ko: "Olymp FUNDED"
+            en: "수익의 최대 90%",
+            ko: "수익의 최대 90%"
         };
         
         const typeText = typeTexts[currentLang];
