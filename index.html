@@ -2229,46 +2229,6 @@
                 });
             });
             
-            // Initialize profit calculator
-            const roiSlider = document.getElementById('roi-slider');
-            const roiValue = document.getElementById('roi-value');
-            const totalProfit = document.getElementById('total-profit');
-            const yourShare = document.getElementById('your-share');
-            const companyShare = document.getElementById('company-share');
-            
-            function updateCalculator() {
-                const baseCapital = 5000; // USDT
-                const profitPercent = parseInt(roiSlider.value);
-                
-                // Calculate values
-                const totalProfitValue = baseCapital * (profitPercent / 100);
-                let userShare, companyShareValue;
-                
-                // Apply profit sharing rules
-                if (totalProfitValue < 5000) {
-                    // 80% user, 20% company
-                    userShare = totalProfitValue * 0.8;
-                    companyShareValue = totalProfitValue * 0.2;
-                } else {
-                    // 90% user, 10% company
-                    userShare = totalProfitValue * 0.9;
-                    companyShareValue = totalProfitValue * 0.1;
-                }
-                
-                // Update display
-                if (roiValue) roiValue.textContent = profitPercent + '%';
-                if (totalProfit) totalProfit.value = totalProfitValue.toFixed(2) + ' USDT';
-                if (yourShare) yourShare.value = userShare.toFixed(2) + ' USDT';
-                if (companyShare) companyShare.value = companyShareValue.toFixed(2) + ' USDT';
-            }
-            
-            // Add event listeners
-            if (roiSlider) {
-                roiSlider.addEventListener('input', updateCalculator);
-                // Initialize with default values
-                updateCalculator();
-            }
-            
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
