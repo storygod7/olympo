@@ -1816,7 +1816,6 @@
                         <div class="relative">
                             <select id="account-select" class="w-full bg-black/50 backdrop-filter backdrop-blur-lg border border-white/20 rounded-xl px-4 py-4 text-white text-lg font-medium appearance-none focus:border-yellow-400/50 focus:outline-none transition-colors">
                                 <option value="15000">15,000 USDT</option>
-                           
                                 <option value="30000" data-en="30,000 USDT (Limited: 200)" data-ko="30,000 USDT (한정: 200명)">30,000 USDT (한정: 200명)</option>
                                 <option value="50000" data-en="50,000 USDT (Limited: 200)" data-ko="50,000 USDT (한정: 200명)">50,000 USDT (한정: 200명)</option>
                             </select>
@@ -1849,17 +1848,17 @@
                     <div class="space-y-4">
                         <div class="glass-panel p-4">
                             <label class="block text-sm font-medium text-gray-400 mb-2" data-en="Total Profit Generated" data-ko="총 생성 수익">총 생성 수익</label>
-                            <input readonly id="total-profit" class="w-full bg-transparent text-2xl font-bold text-blue-400 focus:outline-none" type="text" value="2,500.00 USDT">
+                            <input readonly id="total-profit" class="w-full bg-transparent text-2xl font-bold text-blue-400 focus:outline-none" type="text" value="7,500.00 USDT">
                         </div>
                         
                         <div class="glass-panel p-4">
                             <label class="block text-sm font-medium text-gray-400 mb-2" data-en="Your Share (80-90%)" data-ko="당신의 몫 (80-90%)">당신의 몫 (80-90%)</label>
-                            <input readonly id="your-share" class="w-full bg-transparent text-2xl font-bold text-green-400 focus:outline-none" type="text" value="2,000.00 USDT">
+                            <input readonly id="your-share" class="w-full bg-transparent text-2xl font-bold text-green-400 focus:outline-none" type="text" value="6,750.00 USDT">
                         </div>
                         
                         <div class="glass-panel p-4">
                             <label class="block text-sm font-medium text-gray-400 mb-2" data-en="Olymp FUNDED Share" data-ko="올림프펀디드 몫">올림프펀디드 몫</label>
-                            <input readonly id="company-share" class="w-full bg-transparent text-2xl font-bold text-yellow-400 focus:outline-none" type="text" value="500.00 USDT">
+                            <input readonly id="company-share" class="w-full bg-transparent text-2xl font-bold text-yellow-400 focus:outline-none" type="text" value="750.00 USDT">
                         </div>
 
                         <!-- Profit Sharing Rules -->
@@ -1880,6 +1879,63 @@
                         </div>
                     </div>
                 </div>
+
+                <script>
+                    // Enhanced calculator that works with account selection
+                    function updateCalculator() {
+                        const accountSelect = document.getElementById('account-select');
+                        const roiSlider = document.getElementById('roi-slider');
+                        const roiValue = document.getElementById('roi-value');
+                        const totalProfit = document.getElementById('total-profit');
+                        const yourShare = document.getElementById('your-share');
+                        const companyShare = document.getElementById('company-share');
+                        
+                        if (!accountSelect || !roiSlider || !roiValue || !totalProfit || !yourShare || !companyShare) {
+                            return;
+                        }
+                        
+                        const baseCapital = parseInt(accountSelect.value); // Get selected account size
+                        const profitPercent = parseInt(roiSlider.value);
+                        
+                        // Calculate values
+                        const totalProfitValue = baseCapital * (profitPercent / 100);
+                        let userShare, companyShareValue;
+                        
+                        // Apply profit sharing rules
+                        if (totalProfitValue < baseCapital) {
+                            // 80% user, 20% company
+                            userShare = totalProfitValue * 0.8;
+                            companyShareValue = totalProfitValue * 0.2;
+                        } else {
+                            // 90% user, 10% company
+                            userShare = totalProfitValue * 0.9;
+                            companyShareValue = totalProfitValue * 0.1;
+                        }
+                        
+                        // Update display
+                        roiValue.textContent = profitPercent + '%';
+                        totalProfit.value = totalProfitValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USDT';
+                        yourShare.value = userShare.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USDT';
+                        companyShare.value = companyShareValue.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USDT';
+                    }
+                    
+                    // Add event listeners when DOM is loaded
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const accountSelect = document.getElementById('account-select');
+                        const roiSlider = document.getElementById('roi-slider');
+                        
+                        if (accountSelect) {
+                            accountSelect.addEventListener('change', updateCalculator);
+                        }
+                        
+                        if (roiSlider) {
+                            roiSlider.addEventListener('input', updateCalculator);
+                        }
+                        
+                        // Initialize with default values
+                        updateCalculator();
+                    });
+                </script>
             </div>
         </div>
 
