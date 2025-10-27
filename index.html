@@ -1242,7 +1242,14 @@
         .blink {
             animation: blinkAnimation 3s infinite;
         }
-
+        .flex--msm-wrap {
+            flex-wrap: nowrap;
+        }
+        @media (max-width: 767px) {
+            .flex--msm-wrap {
+                flex-wrap: wrap;
+            }
+        }
         @keyframes blinkAnimation {
             0%, 50%, 100% { opacity: 1; }
             25%, 75% { opacity: 0; }
@@ -1560,10 +1567,13 @@
                                 </div>
                                 
                                 <div class="bg-white/5 p-4 rounded-lg">
-                                    <div class="flex items-start mb-2 gap-3">
+                                    <div class="flex flex--msm-wrap items-start mb-2 gap-3">
                                         <span class="text-white font-medium w-0 flex-grow mt-1" data-en="Example: Start with a $15,000 prop account and a $1,500 entry fee → upon reaching 100% profit
                                         " data-ko="예시">예시</span>
-                                        <span class="whitespace-nowrap text-yellow-400 font-bold text-xl text-left" data-en="5 Days" data-ko="$15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시">15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시</span>
+                                        <!-- en hidden -->
+                                        <span class="text-yellow-400 font-bold text-xl text-left en-hidden" data-en="5 Days" data-ko="$15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시">15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시</span>
+                                        <!-- ko hidden -->
+                                        <span class="text-yellow-400 font-bold text-xl text-left ko-hidden whitespace-nowrap" data-en="5 Days" data-ko="$15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시">15,000프랍 계좌에서 $1500 등록비로 시작->100% 달성시</span>
                                     </div>
                                     <div class="text-gray-400 text-sm" data-en="$15,000 funded capital + $3,000 total payout (entry fee + profits included)
                                     " data-ko="프랍 자금 $15,000전액+ 등록비 및 수익 포함 총 $3000 모두지급">120시간 이내 거래 필수</div>
@@ -2138,38 +2148,45 @@
     // Language Switching Function
     // ============================
     function switchLanguage(lang) {
-    currentLang = lang;
+        currentLang = lang;
+        // .en-hidden and .ko-hidden elements
+        document.querySelectorAll('.en-hidden').forEach(el => {
+            el.style.display = lang === 'en' ? 'none' : '';
+        });
+        document.querySelectorAll('.ko-hidden').forEach(el => {
+            el.style.display = lang === 'ko' ? 'none' : '';
+        });
 
-    // Update all elements that have both data-en and data-ko
-    const elements = document.querySelectorAll('[data-en][data-ko]');
-    elements.forEach(element => {
-        const text = element.getAttribute(`data-${lang}`);
-        if (text) element.textContent = text;
-    });
+        // Update all elements that have both data-en and data-ko
+        const elements = document.querySelectorAll('[data-en][data-ko]');
+        elements.forEach(element => {
+            const text = element.getAttribute(`data-${lang}`);
+            if (text) element.textContent = text;
+        });
 
-    // Update language toggle button
-    const langButton = document.getElementById('langText');
-    if (langButton) {
-        langButton.textContent = lang === 'en' ? '한국어' : 'English';
-    }
+        // Update language toggle button
+        const langButton = document.getElementById('langText');
+        if (langButton) {
+            langButton.textContent = lang === 'en' ? '한국어' : 'English';
+        }
 
-    // Update tooltips
-    const kakaoBtn = document.querySelector('.support-btn.kakao');
-    const telegramBtn = document.querySelector('.support-btn.telegram');
-    if (kakaoBtn) {
-        kakaoBtn.setAttribute('data-tooltip', lang === 'en' ? 'KakaoTalk Support' : '카카오톡 상담');
-    }
-    if (telegramBtn) {
-        telegramBtn.setAttribute('data-tooltip', lang === 'en' ? 'Telegram Support' : '텔레그램 상담');
-    }
+        // Update tooltips
+        const kakaoBtn = document.querySelector('.support-btn.kakao');
+        const telegramBtn = document.querySelector('.support-btn.telegram');
+        if (kakaoBtn) {
+            kakaoBtn.setAttribute('data-tooltip', lang === 'en' ? 'KakaoTalk Support' : '카카오톡 상담');
+        }
+        if (telegramBtn) {
+            telegramBtn.setAttribute('data-tooltip', lang === 'en' ? 'Telegram Support' : '텔레그램 상담');
+        }
 
-    // Save selected language
-    if (typeof Storage !== "undefined") {
-        localStorage.setItem('language', lang);
-    }
+        // Save selected language
+        if (typeof Storage !== "undefined") {
+            localStorage.setItem('language', lang);
+        }
 
-    // Restart the typewriter with the new language
-    startTypeWriter();
+        // Restart the typewriter with the new language
+        startTypeWriter();
     }
 
     // ============================
